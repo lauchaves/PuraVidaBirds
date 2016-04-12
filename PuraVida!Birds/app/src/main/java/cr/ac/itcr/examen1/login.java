@@ -13,79 +13,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.sql.SQLException;
-
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import cr.ac.itcr.examen1.access_data.DBAdapter;
 
 public class login extends AppCompatActivity {
-
-    /*
-    DBAdapter dbAdapter;
-    EditText txtUserName;
-    EditText txtPassword;
-    Button btnLogin;
-    TextView btnRegister;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-
-        txtUserName = (EditText) findViewById(R.id.input_email);
-        txtPassword = (EditText) findViewById(R.id.input_password);
-        btnLogin = (Button) findViewById(R.id.btn_login);
-        btnRegister = (TextView) findViewById(R.id.link_signup);
-        dbAdapter = new DBAdapter(this);
-        dbAdapter.open();
-
-        btnLogin.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View arg0) {
-
-                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(txtUserName.getWindowToken(), 0);
-                imm.hideSoftInputFromWindow(txtPassword.getWindowToken(), 0);
-                String username = txtUserName.getText().toString();
-                String password = txtPassword.getText().toString();
-                if (username.length() > 0 && password.length() > 0) {
-                    try {
-
-                        if (dbAdapter.Login(username, password)) {
-                            Toast.makeText(login.this,
-                                    "Successfully Logged In", Toast.LENGTH_LONG)
-                                    .show();
-                        } else {
-                            Toast.makeText(login.this,
-                                    "Invalid username or password",
-                                    Toast.LENGTH_LONG).show();
-                        }
-
-                    } catch (Exception e) {
-                        Toast.makeText(login.this, "Some problem occurred",
-                                Toast.LENGTH_LONG).show();
-
-                    }
-                } else {
-                    Toast.makeText(login.this,
-                            "Username or Password is empty", Toast.LENGTH_LONG).show();
-                }
-            }
-        });
-
-
-        btnRegister.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(login.this, signup.class);
-                startActivity(intent);
-            }
-        });
-    }
-
-    */
 
     DBAdapter dbAdapter;
 
@@ -96,9 +28,6 @@ public class login extends AppCompatActivity {
     @InjectView(R.id.input_password) EditText _passwordText;
     @InjectView(R.id.btn_login) Button _loginButton;
     @InjectView(R.id.link_signup) TextView _signupLink;
-
-
-
 
 
     @Override
@@ -218,7 +147,6 @@ public class login extends AppCompatActivity {
         }
 
         return valid;
-
 
     }
 

@@ -1,4 +1,4 @@
-package cr.ac.itcr.examen1;
+package cr.ac.itcr.examen1.access_data;
 
 /**
  * Created by Laurens on 09/04/2016.
@@ -37,15 +37,6 @@ public class DBAdapter
         mDbHelper.close();
     }
 
-    public long register(String user,String pw)
-    {
-        ContentValues initialValues = new ContentValues();
-        initialValues.put(KEY_USERNAME, user);
-        initialValues.put(KEY_PASSWORD, pw);
-
-        return mDb.insert(DATABASE_TABLE, null, initialValues);
-    }
-
 
     //Funcion de Login
     public boolean Login(String username, String password) throws SQLException
@@ -59,4 +50,22 @@ public class DBAdapter
         }
         return false;
     }
+
+
+    /*//Funcion de SignUp
+    public void registerUser(String name,String email, String password) throws SQLException
+    {
+        ContentValues newValues = new ContentValues();
+        // Assign values for each row.
+        newValues.put("user_name", name);
+        newValues.put("user_email",email);
+        newValues.put("user_password",password);
+
+
+
+        mDb.insert("USERS", null, newValues);
+        ///Toast.makeText(context, "Reminder Is Successfully Saved", Toast.LENGTH_LONG).show();
+
+    }
+    */
 }

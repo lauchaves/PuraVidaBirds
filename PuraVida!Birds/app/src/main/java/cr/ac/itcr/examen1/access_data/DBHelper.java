@@ -1,4 +1,4 @@
-package cr.ac.itcr.examen1;
+package cr.ac.itcr.examen1.access_data;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

@@ -1,12 +1,11 @@
 package cr.ac.itcr.examen1;
 
-import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
-import android.app.Activity;
-import android.content.Context;
+
+import cr.ac.itcr.examen1.access_data.DBHelper;
 
 
 public class MainActivity extends AppCompatActivity {

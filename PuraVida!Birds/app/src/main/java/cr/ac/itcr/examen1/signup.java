@@ -10,23 +10,41 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import cr.ac.itcr.examen1.access_data.DBAdapter;
+import cr.ac.itcr.examen1.access_data.IRepositoryUser;
+import cr.ac.itcr.examen1.access_data.userRepo;
+import cr.ac.itcr.examen1.entitys.User;
 
 public class signup extends AppCompatActivity {
     private static final String TAG = "SignupActivity";
+    DBAdapter dbAdapter;
 
-    @InjectView(R.id.input_name) EditText _nameText;
-    @InjectView(R.id.input_email) EditText _emailText;
-    @InjectView(R.id.input_password) EditText _passwordText;
-    @InjectView(R.id.btn_signup) Button _signupButton;
-    @InjectView(R.id.link_login) TextView _loginLink;
+
+
+    @InjectView(R.id.input_name)
+    EditText _nameText;
+    @InjectView(R.id.input_email)
+    EditText _emailText;
+    @InjectView(R.id.input_password)
+    EditText _passwordText;
+    @InjectView(R.id.btn_signup)
+    Button _signupButton;
+    @InjectView(R.id.link_login)
+    TextView _loginLink;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
         ButterKnife.inject(this);
+
+        // get Instance of Database Adapter
+        dbAdapter = new DBAdapter(this);
+        dbAdapter.open();
 
         _signupButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,11 +88,17 @@ public class signup extends AppCompatActivity {
                     public void run() {
                         // On complete call either onSignupSuccess or onSignupFailed
                         // depending on success
-                        onSignupSuccess();
-                        // onSignupFailed();
+
+
+                        if (!register())
+                            onSignupFailed();
+                        else
+                            onSignupSuccess();
+
                         progressDialog.dismiss();
+
                     }
-                }, 3000);
+                }, 2000);
     }
 
 
@@ -82,10 +106,11 @@ public class signup extends AppCompatActivity {
         _signupButton.setEnabled(true);
         setResult(RESULT_OK, null);
         finish();
+
     }
 
     public void onSignupFailed() {
-        Toast.makeText(getBaseContext(), "Login failed", Toast.LENGTH_LONG).show();
+        Toast.makeText(getBaseContext(), "Signup failed", Toast.LENGTH_LONG).show();
 
         _signupButton.setEnabled(true);
     }
@@ -120,8 +145,47 @@ public class signup extends AppCompatActivity {
 
         return valid;
     }
-}
 
+
+    public boolean register() {
+        boolean register = true;
+
+
+
+        String name = _nameText.getText().toString();
+        String username = _emailText.getText().toString();
+        String password = _passwordText.getText().toString();
+
+        IRepositoryUser repositoryUser = new userRepo(getApplicationContext());
+
+        ArrayList<User> test = repositoryUser.GetAll();
+        String size = String.valueOf(test.size());
+        Log.d("Size test",  size);
+
+        User user = new User();
+        user.setName(name.toString());
+        user.setEmail(username.toString());
+        user.setPassword(password.toString());
+        user.setId(test.size() + 1);
+        repositoryUser.Save(user);
+
+        Log.d("New Size test", size);
+        //dbAdapter.registerUser(name,username,password);
+        Toast.makeText(getApplicationContext(), "Account Successfully Created ", Toast.LENGTH_LONG).show();
+
+        return register;
+
+    }
+
+    @Override
+
+    protected void onDestroy() {
+    // TODO Auto-generated method stub
+        super.onDestroy();
+
+        dbAdapter.close();
+    }
+}
 
  /*@Override
             public void onClick(View arg0) {
