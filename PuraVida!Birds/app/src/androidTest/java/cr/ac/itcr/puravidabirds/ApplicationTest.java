@@ -1,4 +1,4 @@
-package cr.ac.itcr.examen1;
+package cr.ac.itcr.puravidabirds;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

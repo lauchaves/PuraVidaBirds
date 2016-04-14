@@ -1,4 +1,4 @@
-package cr.ac.itcr.examen1.access_data;
+package cr.ac.itcr.puravidabirds.access_data;
 
 import java.util.ArrayList;
 

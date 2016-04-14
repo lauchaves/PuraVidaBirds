@@ -1,11 +1,9 @@
-package cr.ac.itcr.examen1.access_data;
+package cr.ac.itcr.puravidabirds.access_data;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-
-import java.sql.SQLException;
 
 /**
  * Created by Laurens on 09/04/2016.
@@ -24,15 +22,22 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         Log.i(this.getClass().toString(), "Creating Data Base: PuraVidaDb");
 
-        db.execSQL( "CREATE TABLE USERS(" +
+        db.execSQL("CREATE TABLE USERS(" +
                 " _id INTEGER PRIMARY KEY AUTOINCREMENT," +
                 " user_name TEXT NOT NULL, " +
                 " user_email TEXT NOT NULL, " +
-                " user_password TEXT )" );
+                " user_password TEXT )");
+
+        db.execSQL( "CREATE TABLE BIRDS(" +
+                " _id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                " birdName TEXT NOT NULL, " +
+                " birdScientificName TEXT NOT NULL, " +
+                " imagePath TEXT )" );
 
         db.execSQL( "CREATE UNIQUE INDEX user_name ON USERS(user_name ASC)" );
 
         Log.i(this.getClass().toString(), "Table USERS created");
+        Log.i(this.getClass().toString(), "Table BIRDS created");
 
    /*
     * Initial data
@@ -52,11 +57,35 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS USERS");
-        onCreate(db);
+        try{
+
+            StringBuilder sql = new StringBuilder();
+
+            for(int indiceVersion = oldVersion; indiceVersion < newVersion; indiceVersion++){
+                int nextVersion = indiceVersion + 1;
+                switch (nextVersion){
+
+                    case 1:
+                        String sqlDropPlace = "DROP TABLE IF EXISTS USERS";
+                        sql.append(sqlDropPlace);
+                        break;
+
+                    case 2:
+                        String sqlDropPlace2 = "DROP TABLE IF EXISTS BIRDS";
+                        sql.append(sqlDropPlace2);
+                        break;
+
+                    case 3:
+
+                        break;
+                }
+            }
+            db.execSQL(sql.toString());
+        }
+        catch (Exception error){
+
+            Log.d("error", error.getMessage());
+        }
     }
-
-
-
 
 }

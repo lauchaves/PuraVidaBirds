@@ -1,3 +1,12 @@
 <resources>
-    <string name="app_name">Pura Vida! Birds</string>
+    <string name="app_name">PuraVida! Birds</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="title_activity_signup">SignupActivity</string>
+    <string name="myUsername"></string>
+
 </resources>

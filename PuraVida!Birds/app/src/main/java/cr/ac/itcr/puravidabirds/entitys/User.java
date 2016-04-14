@@ -1,4 +1,4 @@
-package cr.ac.itcr.examen1.entitys;
+package cr.ac.itcr.puravidabirds.entitys;
 
 /**
  * Created by Laurens on 11/04/2016.

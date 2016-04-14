@@ -1,10 +1,13 @@
-package cr.ac.itcr.examen1;
+package cr.ac.itcr.puravidabirds;
 
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -15,11 +18,12 @@ import android.widget.Toast;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import cr.ac.itcr.examen1.access_data.DBAdapter;
+import cr.ac.itcr.puravidabirds.access_data.DBAdapter;
 
-public class login extends AppCompatActivity {
 
+public class LoginActivity extends AppCompatActivity {
     DBAdapter dbAdapter;
+
 
     private static final String TAG = "LoginActivity";
     private static final int REQUEST_SIGNUP = 0;
@@ -28,7 +32,6 @@ public class login extends AppCompatActivity {
     @InjectView(R.id.input_password) EditText _passwordText;
     @InjectView(R.id.btn_login) Button _loginButton;
     @InjectView(R.id.link_signup) TextView _signupLink;
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -53,7 +56,7 @@ public class login extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Start the Signup activity
-                Intent intent = new Intent(getApplicationContext(), signup.class);
+                Intent intent = new Intent(getApplicationContext(), SignupActivity.class);
                 startActivityForResult(intent, REQUEST_SIGNUP);
             }
         });
@@ -69,7 +72,7 @@ public class login extends AppCompatActivity {
 
         _loginButton.setEnabled(false);
 
-        final ProgressDialog progressDialog = new ProgressDialog(login.this);
+        final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this);
         progressDialog.setIndeterminate(true);
         progressDialog.setMessage("Authenticating...");
         progressDialog.show();
@@ -83,31 +86,17 @@ public class login extends AppCompatActivity {
                 new Runnable() {
                     public void run() {
                         // On complete call either onLoginSuccess or onLoginFailed
-                        if (!validateLogin());
+                        if (!validateLogin())
                             onLoginFailed();
+                        else {
 
-                        onLoginSuccess();
+                            onLoginSuccess();
+                        }
                         // onLoginFailed();
                         progressDialog.dismiss();
                     }
                 }, 2000);
     }
-
-
-    /*
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_SIGNUP) {
-            if (resultCode == RESULT_OK) {
-
-                // TODO: Implement successful signup logic here
-                // By default we just finish the Activity and log them in automatically
-                //this.finish();
-            }
-        }
-    }
-    */
-
 
     @Override
     public void onBackPressed() {
@@ -117,12 +106,15 @@ public class login extends AppCompatActivity {
 
     public void onLoginSuccess() {
         _loginButton.setEnabled(true);
+        _emailText.setText("");
+        _passwordText.setText("");
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(intent);
         //finish();
     }
 
     public void onLoginFailed() {
         Toast.makeText(getBaseContext(), "Login failed", Toast.LENGTH_LONG).show();
-
         _loginButton.setEnabled(true);
     }
 
@@ -163,31 +155,33 @@ public class login extends AppCompatActivity {
             try {
 
                 if (dbAdapter.Login(username, password)) {
-                    Toast.makeText(login.this,
+                    Toast.makeText(LoginActivity.this,
                             "Successfully Logged In", Toast.LENGTH_LONG)
                             .show();
+                    dbAdapter.getUserName(username);
+
+
+
                 } else {
-                    Toast.makeText(login.this,
+                    Toast.makeText(LoginActivity.this,
                             "Invalid username or password",
                             Toast.LENGTH_LONG).show();
                     valid = false;
                 }
 
             } catch (Exception e) {
-                Toast.makeText(login.this, "Some problem occurred",
+                Toast.makeText(LoginActivity.this, "Some problem occurred",
                         Toast.LENGTH_LONG).show();
                 valid = false;
 
             }
         } else {
-            Toast.makeText(login.this,
+            Toast.makeText(LoginActivity.this,
                     "Username or Password is empty", Toast.LENGTH_LONG).show();
             valid = false;
         }
         return valid;
 
     }
+
 }
-
-
-

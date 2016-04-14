@@ -1,4 +1,4 @@
-package cr.ac.itcr.examen1;
+package cr.ac.itcr.puravidabirds;
 
 import org.junit.Test;
 

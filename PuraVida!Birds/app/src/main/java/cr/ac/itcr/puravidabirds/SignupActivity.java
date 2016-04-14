@@ -1,8 +1,11 @@
-package cr.ac.itcr.examen1;
+package cr.ac.itcr.puravidabirds;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -14,12 +17,13 @@ import java.util.ArrayList;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import cr.ac.itcr.examen1.access_data.DBAdapter;
-import cr.ac.itcr.examen1.access_data.IRepositoryUser;
-import cr.ac.itcr.examen1.access_data.userRepo;
-import cr.ac.itcr.examen1.entitys.User;
+import cr.ac.itcr.puravidabirds.access_data.DBAdapter;
+import cr.ac.itcr.puravidabirds.access_data.IRepositoryUser;
+import cr.ac.itcr.puravidabirds.access_data.userRepo;
+import cr.ac.itcr.puravidabirds.entitys.User;
 
-public class signup extends AppCompatActivity {
+public class SignupActivity extends AppCompatActivity {
+
     private static final String TAG = "SignupActivity";
     DBAdapter dbAdapter;
 
@@ -72,7 +76,7 @@ public class signup extends AppCompatActivity {
 
         _signupButton.setEnabled(false);
 
-        final ProgressDialog progressDialog = new ProgressDialog(signup.this);
+        final ProgressDialog progressDialog = new ProgressDialog(SignupActivity.this);
         progressDialog.setIndeterminate(true);
         progressDialog.setMessage("Creating Account...");
         progressDialog.show();
@@ -180,7 +184,7 @@ public class signup extends AppCompatActivity {
     @Override
 
     protected void onDestroy() {
-    // TODO Auto-generated method stub
+        // TODO Auto-generated method stub
         super.onDestroy();
 
         dbAdapter.close();
@@ -208,3 +212,5 @@ public class signup extends AppCompatActivity {
 
             }
             */
+
+

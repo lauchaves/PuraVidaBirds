@@ -1,15 +1,15 @@
-package cr.ac.itcr.examen1.access_data;
+package cr.ac.itcr.puravidabirds.access_data;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.location.Location;
 import android.util.Log;
 
 import java.util.ArrayList;
 
-import cr.ac.itcr.examen1.entitys.User;
+import cr.ac.itcr.puravidabirds.entitys.User;
+
 
 /**
  * Created by Laurens on 11/04/2016.
